@@ -40,7 +40,7 @@ public class SurveyController {
     @ApiOperation(value = "Create a new survey")
     ResponseEntity<Void> createSurvey(@RequestBody @Valid SurveyDTO surveyDTO) {
         var id = surveyService.createSurvey(surveyDTO);
-        var uri = MessageFormat.format("v1/survey/{0}", id);
+        var uri = MessageFormat.format("v1/surveys/{0}", id);
         return ResponseEntity.created(URI.create(uri)).build();
     }
 
@@ -50,8 +50,10 @@ public class SurveyController {
     ResponseEntity<Void> updateSurvey(@PathVariable(value = "id") Long id,
                                         @RequestBody @Valid SurveyDTO surveyDTO) {
         surveyService.updateSurvey(surveyDTO);
-        var uri = MessageFormat.format("v1/survey/{0}", id);
-        return ResponseEntity.created(URI.create(uri)).build();
+        var uri = MessageFormat.format("v1/surveys/{0}", id);
+        return ResponseEntity.ok()
+                .header("location", URI.create(uri).toString())
+                .build();
     }
 
     @DeleteMapping(path = "/{id}")

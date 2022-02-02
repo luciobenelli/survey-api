@@ -4,7 +4,7 @@ import lombok.*;
 
 @Getter
 @Setter
-@Builder
+@Builder(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class SurveyDTO {
