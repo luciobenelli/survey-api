@@ -1,0 +1,22 @@
+spring:
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: jdbc:h2:mem:LBP;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=Oracle;
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+    jpa:
+      database-platform: org.hibernate.dialect.H2Dialect
+      show-sql: true
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        use_sql_comments: true
+    sql:
+      init:
+        platform: h2
+app:
+  protocol: http
