@@ -1,11 +1,11 @@
 package survey.api;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import survey.service.SurveyService;
+import survey.utils.TestMock;
 
 import java.util.List;
 
@@ -14,8 +14,7 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(SurveyController.class)
 class SurveyControllerTest extends BaseControllerTest {
@@ -25,17 +24,10 @@ class SurveyControllerTest extends BaseControllerTest {
     @MockBean
     private SurveyService surveyService;
 
-    private List<SurveyDTO> surveys;
-
-    @BeforeEach
-    private void setup() {
-        surveys = List.of(SurveyDTO.build(1L));
-    }
-
     @Test
     void shouldReturnSurveys() throws Exception {
         when(surveyService.getSurveys())
-                .thenReturn(surveys);
+                .thenReturn(List.of(TestMock.getSurveyDTO()));
 
         getMvc().perform(get(URL))
                 .andExpect(status().isOk());
@@ -45,11 +37,14 @@ class SurveyControllerTest extends BaseControllerTest {
 
     @Test
     void shouldReturnSurvey() throws Exception {
+        var survey = TestMock.getSurveyDTO();
+
         when(surveyService.getSurvey(anyLong()))
-                .thenReturn(surveys.get(0));
+                .thenReturn(survey);
 
         getMvc().perform(get(URL_WITH_ID, "1"))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(content().json(toJson(survey)));
 
         verify(surveyService).getSurvey(1L);
     }
@@ -61,7 +56,7 @@ class SurveyControllerTest extends BaseControllerTest {
 
         getMvc().perform(post(URL)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(toJson(surveys.get(0))))
+                        .content(toJson(TestMock.getSurveyDTO())))
                 .andExpect(status().isCreated())
                 .andExpect(header().string("location", "v1/surveys/1"));
 
@@ -72,7 +67,7 @@ class SurveyControllerTest extends BaseControllerTest {
     void shouldUpdateSurvey() throws Exception {
         getMvc().perform(put(URL_WITH_ID, "1")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(toJson(surveys.get(0))))
+                        .content(toJson(TestMock.getSurveyDTO())))
                 .andExpect(status().isOk())
                 .andExpect(header().string("location", "v1/surveys/1"));
 
