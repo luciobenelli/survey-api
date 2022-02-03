@@ -7,12 +7,12 @@ import org.springframework.http.MediaType;
 import survey.service.SurveyService;
 import survey.utils.TestMock;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -45,6 +45,17 @@ class SurveyControllerTest extends BaseControllerTest {
         getMvc().perform(get(URL_WITH_ID, "1"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(toJson(survey)));
+
+        verify(surveyService).getSurvey(1L);
+    }
+
+    @Test
+    void shouldReturnSurveyNotFound() throws Exception {
+        doThrow(EntityNotFoundException.class)
+                .when(surveyService).getSurvey(anyLong());
+
+        getMvc().perform(get(URL_WITH_ID, "1"))
+                .andExpect(status().isNotFound());
 
         verify(surveyService).getSurvey(1L);
     }
