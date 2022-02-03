@@ -2,6 +2,7 @@ package survey.api;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
+import survey.model.Survey;
 import survey.utils.StatusEnum;
 
 import javax.validation.constraints.NotNull;
@@ -21,4 +22,22 @@ public class SurveyDTO {
     private String description;
     @NotNull
     private StatusEnum status;
+
+    public static SurveyDTO toDTO(Survey survey) {
+        return SurveyDTO.builder()
+                .id(survey.getId())
+                .name(survey.getName())
+                .description(survey.getDescription())
+                .status(survey.getStatus())
+                .build();
+    }
+
+    public static Survey toEntity(SurveyDTO dto) {
+        return Survey.builder()
+                .id(dto.getId())
+                .name(dto.getName())
+                .description(dto.getDescription())
+                .status(dto.getStatus())
+                .build();
+    }
 }
