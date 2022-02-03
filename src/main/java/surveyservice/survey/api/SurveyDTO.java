@@ -1,9 +1,9 @@
-package survey.api;
+package surveyservice.survey.api;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
-import survey.model.Survey;
-import survey.utils.StatusEnum;
+import surveyservice.survey.model.Survey;
+import surveyservice.utils.StatusEnum;
 
 import javax.validation.constraints.NotNull;
 

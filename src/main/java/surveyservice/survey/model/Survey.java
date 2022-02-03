@@ -1,7 +1,7 @@
-package survey.model;
+package surveyservice.survey.model;
 
 import lombok.*;
-import survey.utils.StatusEnum;
+import surveyservice.utils.StatusEnum;
 
 import javax.persistence.*;
 

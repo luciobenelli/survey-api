@@ -1,4 +1,4 @@
-package survey.api;
+package surveyservice.api;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -14,7 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import survey.Application;
+import surveyservice.Application;
 
 @Tag("slow")
 @ExtendWith(SpringExtension.class)

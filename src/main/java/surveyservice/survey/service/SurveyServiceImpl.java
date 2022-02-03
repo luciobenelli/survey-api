@@ -1,9 +1,9 @@
-package survey.service;
+package surveyservice.survey.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import survey.api.SurveyDTO;
-import survey.repository.SurveyRepository;
+import surveyservice.survey.api.SurveyDTO;
+import surveyservice.survey.repository.SurveyRepository;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;

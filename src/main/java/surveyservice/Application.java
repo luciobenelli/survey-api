@@ -1,4 +1,4 @@
-package survey;
+package surveyservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

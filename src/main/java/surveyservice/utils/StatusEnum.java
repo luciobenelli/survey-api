@@ -1,4 +1,4 @@
-package survey.utils;
+package surveyservice.utils;
 
 public enum StatusEnum {
     CREATED,

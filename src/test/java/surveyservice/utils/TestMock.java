@@ -1,7 +1,7 @@
-package survey.utils;
+package surveyservice.utils;
 
-import survey.api.SurveyDTO;
-import survey.model.Survey;
+import surveyservice.survey.api.SurveyDTO;
+import surveyservice.survey.model.Survey;
 
 public class TestMock {
 

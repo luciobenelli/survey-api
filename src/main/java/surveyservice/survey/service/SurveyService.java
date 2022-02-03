@@ -1,6 +1,6 @@
-package survey.service;
+package surveyservice.survey.service;
 
-import survey.api.SurveyDTO;
+import surveyservice.survey.api.SurveyDTO;
 
 import java.util.List;
 
