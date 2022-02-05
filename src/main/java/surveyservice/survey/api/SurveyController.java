@@ -46,7 +46,7 @@ public class SurveyController {
 
     @PutMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    @ApiOperation(value = "Updates a survey")
+    @ApiOperation(value = "Update a survey")
     ResponseEntity<Void> updateSurvey(@PathVariable(value = "id") Long id,
                                         @RequestBody @Valid SurveyDTO surveyDTO) {
         surveyService.updateSurvey(surveyDTO);

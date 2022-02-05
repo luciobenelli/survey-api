@@ -1,0 +1,2 @@
+INSERT INTO QUESTION(ID, TITLE, SURVEY_ID)
+VALUES(1L, 'question title', 1L);

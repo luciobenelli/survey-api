@@ -1,9 +1,11 @@
 package surveyservice.survey.model;
 
 import lombok.*;
+import surveyservice.question.model.Question;
 import surveyservice.utils.StatusEnum;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -14,6 +16,7 @@ import javax.persistence.*;
 public class Survey {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
@@ -22,5 +25,8 @@ public class Survey {
 
     @Enumerated(EnumType.STRING)
     private StatusEnum status;
+
+    @OneToMany(mappedBy = "survey", orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<Question> questionList;
 
 }

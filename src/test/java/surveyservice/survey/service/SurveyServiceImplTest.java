@@ -1,4 +1,4 @@
-package surveyservice.service;
+package surveyservice.survey.service;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -7,7 +7,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import surveyservice.survey.model.Survey;
 import surveyservice.survey.repository.SurveyRepository;
-import surveyservice.survey.service.SurveyServiceImpl;
 import surveyservice.utils.TestMock;
 
 import javax.persistence.EntityNotFoundException;

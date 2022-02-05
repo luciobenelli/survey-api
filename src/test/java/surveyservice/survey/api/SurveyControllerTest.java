@@ -1,12 +1,11 @@
-package surveyservice.api;
+package surveyservice.survey.api;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import surveyservice.survey.api.SurveyController;
-import surveyservice.survey.api.SurveyDTO;
 import surveyservice.survey.service.SurveyService;
+import surveyservice.utils.BaseControllerTest;
 import surveyservice.utils.TestMock;
 
 import javax.persistence.EntityNotFoundException;
