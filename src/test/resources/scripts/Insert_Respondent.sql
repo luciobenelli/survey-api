@@ -1,0 +1,2 @@
+INSERT INTO RESPONDENT(ID, FIRST_NAME, LAST_NAME, EMAIL)
+VALUES(1L, 'John', 'Doe', 'johndoe@johndoe.com');

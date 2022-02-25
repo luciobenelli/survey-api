@@ -1,0 +1,15 @@
+CREATE SEQUENCE SEQ_RESPONDENT_ID START WITH 1 INCREMENT BY 1 NOCACHE NOCYCLE ORDER;
+
+CREATE TABLE RESPONDENT(ID NUMBER(38) NOT NULL,
+                        FIRST_NAME VARCHAR2(20) NOT NULL,
+                        LAST_NAME VARCHAR2(20) NOT NULL,
+                        EMAIL VARCHAR2(50) NOT NULL,
+                        CONSTRAINT PK_RESPONDENT PRIMARY KEY (ID)
+                   );
+
+COMMENT ON TABLE RESPONDENT IS 'Contains the respondent information.';
+
+COMMENT ON COLUMN RESPONDENT.ID IS 'Unique table identifier. Incremented using SEQ_RESPONDENT_ID';
+COMMENT ON COLUMN RESPONDENT.FIRST_NAME IS 'Respondent''s first name';
+COMMENT ON COLUMN RESPONDENT.LAST_NAME IS 'Respondent''s last name';
+COMMENT ON COLUMN RESPONDENT.EMAIL IS '''Respondent''s e-mail';

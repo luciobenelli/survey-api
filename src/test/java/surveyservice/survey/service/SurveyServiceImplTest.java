@@ -37,10 +37,10 @@ class SurveyServiceImplTest {
 
     @Test
     void getSurveysShouldReturnSurveys() {
-        var expected = List.of(TestMock.getSurvey());
+        var expected = List.of(TestMock.getSurveyDTO());
 
         when(surveyRepository.findAll())
-                .thenReturn(expected);
+                .thenReturn(List.of(TestMock.getSurvey()));
 
         var result = service.getSurveys();
 
@@ -51,10 +51,10 @@ class SurveyServiceImplTest {
 
     @Test
     void getSurveyShouldReturnDTO() {
-        var expected = TestMock.getSurvey();
+        var expected = TestMock.getSurveyDTO();
 
         when(surveyRepository.findById(2L))
-                .thenReturn(Optional.of(expected));
+                .thenReturn(Optional.of(TestMock.getSurvey()));
 
         var result = service.getSurvey(2L);
 
@@ -76,15 +76,15 @@ class SurveyServiceImplTest {
 
     @Test
     void createSurveyShouldReturnCreatedId() {
-        var expected = TestMock.getSurvey();
+        var expected = TestMock.getSurveyDTO().getId();
 
         when(surveyRepository.saveAndFlush(any(Survey.class)))
-                .thenReturn(expected);
+                .thenReturn(TestMock.getSurvey());
 
         var result = service.createSurvey(TestMock.getSurveyDTO());
 
         assertThat(result)
-                .isEqualTo(expected.getId());
+                .isEqualTo(expected);
     }
 
     @Test

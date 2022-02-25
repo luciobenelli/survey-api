@@ -2,6 +2,7 @@ package surveyservice.survey.model;
 
 import lombok.*;
 import surveyservice.question.model.Question;
+import surveyservice.response.model.Response;
 import surveyservice.utils.StatusEnum;
 
 import javax.persistence.*;
@@ -34,5 +35,8 @@ public class Survey {
 
     @OneToMany(mappedBy = "survey", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Question> questionList;
+
+    @OneToMany(mappedBy = "survey", orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<Response> responseList;
 
 }
