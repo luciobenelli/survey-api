@@ -3,3 +3,9 @@ VALUES(1L, 'choice description 1', 1L);
 
 INSERT INTO CHOICE(ID, DESCRIPTION, QUESTION_ID)
 VALUES(2L, 'choice description 2', 1L);
+
+INSERT INTO CHOICE(ID, DESCRIPTION, QUESTION_ID)
+VALUES(3L, 'choice description 3', 2L);
+
+INSERT INTO CHOICE(ID, DESCRIPTION, QUESTION_ID)
+VALUES(4L, 'choice description 4', 2L);

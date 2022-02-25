@@ -4,6 +4,12 @@ import surveyservice.question.api.ChoiceDTO;
 import surveyservice.question.api.QuestionDTO;
 import surveyservice.question.model.Choice;
 import surveyservice.question.model.Question;
+import surveyservice.response.api.AnswerDTO;
+import surveyservice.response.api.RespondentDTO;
+import surveyservice.response.api.ResponseDTO;
+import surveyservice.response.model.Answer;
+import surveyservice.response.model.Respondent;
+import surveyservice.response.model.Response;
 import surveyservice.survey.api.SurveyDTO;
 import surveyservice.survey.model.Survey;
 
@@ -44,28 +50,94 @@ public class TestMock {
     private static ChoiceDTO getChoiceDTO(long id) {
         return ChoiceDTO.builder()
                 .id(id)
-                .description("choice "+ id)
+                .description("choice description "+ id)
                 .build();
     }
 
+    public static List<Question> getQuestionList() {
+        return List.of(getQuestion(1L), getQuestion(2L));
+    }
 
     public static Question getQuestion() {
+        return getQuestion(1L);
+    }
+
+    public static Question getQuestion(Long questionId) {
         return Question.builder()
-                .id(1L)
+                .id(questionId)
                 .title("question title")
                 .survey(getSurvey())
-                .choiceList(getChoiceList())
+                .choiceList(getChoiceList(questionId))
                 .build();
     }
 
-    private static List<Choice> getChoiceList() {
-        return List.of(getChoice(1L), getChoice(2L));
+    private static List<Choice> getChoiceList(Long fator) {
+        var id1 = 2L * fator - 1L;
+        var id2 = 2L * fator;
+
+        return List.of(getChoice(id1), getChoice(id2));
     }
 
     private static Choice getChoice(Long id) {
         return Choice.builder()
                 .id(id)
                 .description("choice description " + id)
+                .build();
+    }
+
+    public static ResponseDTO getResponseDTO() {
+        return ResponseDTO.builder()
+                .answerDTOList(getAnswerDTOList())
+                .respondentDTO(getRespondentDTO())
+                .build();
+    }
+
+    private static RespondentDTO getRespondentDTO() {
+        return RespondentDTO.builder()
+                .firstName("John")
+                .lastName("Doe")
+                .email("johndoe@johndoe.com")
+                .build();
+    }
+
+    private static List<AnswerDTO> getAnswerDTOList() {
+        return List.of(getAnswerDTO(1L), getAnswerDTO(2L));
+    }
+
+    private static AnswerDTO getAnswerDTO(Long questionId){
+        return AnswerDTO.builder()
+                .questionId(questionId)
+                .choiceId(1L)
+                .build();
+    }
+
+    public static Response getResponse() {
+        return Response.builder()
+                .id(1L)
+                .survey(getSurvey())
+                .respondent(getRespondent())
+                .answerList(getAnswerList())
+                .build();
+    }
+
+    private static Respondent getRespondent() {
+        return Respondent.builder()
+                .id(1L)
+                .firstName("John")
+                .lastName("Doe")
+                .email("johndoe@johndoe.com")
+                .build();
+    }
+
+    private static List<Answer> getAnswerList() {
+        return List.of(getAnswer(1L), getAnswer(2L));
+    }
+
+    private static Answer getAnswer(Long questionId){
+        return Answer.builder()
+                .id(questionId)
+                .question(getQuestion(questionId))
+                .choice(getChoice(1L))
                 .build();
     }
 }

@@ -41,31 +41,29 @@ class QuestionServiceImplTest {
 
     @Test
     void getQuestionsShouldReturnQuestions() {
-        var expected = List.of(TestMock.getQuestion());
+        var expected = List.of(TestMock.getQuestionDTO());
 
         when(questionRepository.findAllBySurvey_Id(1L))
-                .thenReturn(expected);
+                .thenReturn(List.of(TestMock.getQuestion()));
 
         var result = service.getQuestions(1L);
 
         assertThat(result)
                 .usingRecursiveComparison()
-                .ignoringFields("choiceDTOList")
                 .isEqualTo(expected);
     }
 
     @Test
     void getQuestionShouldReturnDTO() {
-        var expected = TestMock.getQuestion();
+        var expected = TestMock.getQuestionDTO();
 
         when(questionRepository.findBySurvey_IdAndId(1L, 2L))
-                .thenReturn(Optional.of(expected));
+                .thenReturn(Optional.of(TestMock.getQuestion()));
 
         var result = service.getQuestion(1L, 2L);
 
         assertThat(result)
                 .usingRecursiveComparison()
-                .ignoringFields("choiceDTOList")
                 .isEqualTo(expected);
     }
 
@@ -82,6 +80,8 @@ class QuestionServiceImplTest {
 
     @Test
     void createQuestionShouldReturnCreatedId() {
+        var expected = TestMock.getQuestion().getId();
+
         when(surveyRepository.findById(1L))
                 .thenReturn(Optional.of(TestMock.getSurvey()));
 
@@ -91,7 +91,7 @@ class QuestionServiceImplTest {
         var result = service.createQuestion(1L, TestMock.getQuestionDTO());
 
         assertThat(result)
-                .isEqualTo(1L);
+                .isEqualTo(expected);
     }
 
     @Test
