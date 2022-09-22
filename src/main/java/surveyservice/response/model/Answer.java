@@ -21,15 +21,17 @@ public class Answer {
     @Column(name = "ID")
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "QUESTION_ID", referencedColumnName = "ID")
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "QUESTION_ID")
     private Question question;
 
-    @OneToOne
-    @JoinColumn(name = "CHOICE_ID", referencedColumnName = "ID")
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "CHOICE_ID")
     private Choice choice;
 
     @ManyToOne
-    @JoinColumn(name = "RESPONSE_ID", referencedColumnName = "ID")
+    @JoinColumn(name = "RESPONSE_ID")
     private Response response;
+
+
 }

@@ -1,6 +1,7 @@
 package surveyservice.question.model;
 
 import lombok.*;
+import surveyservice.response.model.Answer;
 
 import javax.persistence.*;
 
@@ -23,7 +24,10 @@ public class Choice {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "QUESTION_ID", referencedColumnName = "ID")
+    @JoinColumn(name = "QUESTION_ID")
     private Question question;
+
+    @OneToOne(mappedBy = "choice", orphanRemoval = true)
+    private Answer answer;
 
 }

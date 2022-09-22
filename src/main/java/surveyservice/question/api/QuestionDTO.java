@@ -39,13 +39,14 @@ public class QuestionDTO {
                 .collect(Collectors.toList());
     }
 
-    public static Question toEntity(Survey survey, QuestionDTO dto) {
-        return Question.builder()
+    public static Question toEntity(Survey survey, Question question, QuestionDTO dto) {
+        var newQuestion = question.toBuilder()
                 .id(dto.getId())
-                .title(dto.getTitle())
                 .survey(survey)
-                .choiceList(getChoiceList(dto))
+                .title(dto.getTitle())
                 .build();
+        newQuestion.setChoiceList(getChoiceList(dto));
+        return newQuestion;
     }
 
     private static List<Choice> getChoiceList(QuestionDTO dto) {

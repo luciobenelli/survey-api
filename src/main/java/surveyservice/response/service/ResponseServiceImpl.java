@@ -34,10 +34,10 @@ public class ResponseServiceImpl implements ResponseService {
 
     @Override
     public Long createResponse(Long idSurvey, ResponseDTO responseDTO) {
-        if ( surveyRepository.findById(idSurvey).isEmpty() ) {
-            throw new EntityNotFoundException("Survey " + idSurvey + " not found");
-        }
-        return responseRepository.saveAndFlush(ResponseDTO.toEntity(responseDTO)).getId();
+        var response = surveyRepository.findById(idSurvey)
+                .map(survey -> ResponseDTO.toEntity(survey, responseDTO))
+                .orElseThrow(() -> new EntityNotFoundException("Survey " + idSurvey + " not found"));
+        return responseRepository.save(response).getId();
     }
 
 }

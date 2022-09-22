@@ -21,15 +21,23 @@ public class Response {
     @Column(name = "ID")
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "RESPONDENT_ID", referencedColumnName = "ID")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "RESPONDENT_ID")
     private Respondent respondent;
 
-    @OneToMany(mappedBy = "response", orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "response", cascade = CascadeType.ALL)
     private List<Answer> answerList;
 
     @ManyToOne
-    @JoinColumn(name = "SURVEY_ID", referencedColumnName = "ID")
+    @JoinColumn(name = "SURVEY_ID")
     private Survey survey;
 
+    public List<Answer> getAnswerList() {
+        return this.answerList == null ? List.of() : this.answerList;
+    }
+
+    public void setAnswerList(List<Answer> answerList) {
+        answerList.forEach(answer -> answer.setResponse(this));
+        this.answerList = answerList;
+    }
 }

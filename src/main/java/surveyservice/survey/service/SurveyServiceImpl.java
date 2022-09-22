@@ -3,6 +3,7 @@ package surveyservice.survey.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import surveyservice.survey.api.SurveyDTO;
+import surveyservice.survey.model.Survey;
 import surveyservice.survey.repository.SurveyRepository;
 
 import javax.persistence.EntityNotFoundException;
@@ -36,14 +37,13 @@ public class SurveyServiceImpl implements SurveyService {
 
     @Override
     public Long createSurvey(SurveyDTO surveyDTO) {
-        return surveyRepository.saveAndFlush(SurveyDTO.toEntity(surveyDTO)).getId();
+        return surveyRepository.save(SurveyDTO.toEntity(Survey.builder().build(), surveyDTO)).getId();
     }
 
     @Override
     public void updateSurvey(SurveyDTO surveyDTO) {
-        if (surveyRepository.findById(surveyDTO.getId()).isEmpty()) {
-            throw new EntityNotFoundException("Survey " + surveyDTO.getId() + " not found");
-        }
-        surveyRepository.saveAndFlush(SurveyDTO.toEntity(surveyDTO));
+        var survey = surveyRepository.findById(surveyDTO.getId())
+                .orElseThrow(() -> new EntityNotFoundException("Survey " + surveyDTO.getId() + " not found"));
+        surveyRepository.save(SurveyDTO.toEntity(survey, surveyDTO));
     }
 }
