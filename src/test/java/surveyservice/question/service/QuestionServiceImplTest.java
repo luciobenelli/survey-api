@@ -85,7 +85,7 @@ class QuestionServiceImplTest {
         when(surveyRepository.findById(1L))
                 .thenReturn(Optional.of(TestMock.getSurvey()));
 
-        when(questionRepository.saveAndFlush(any(Question.class)))
+        when(questionRepository.save(any(Question.class)))
                 .thenReturn(TestMock.getQuestion());
 
         var result = service.createQuestion(1L, TestMock.getQuestionDTO());
@@ -108,13 +108,13 @@ class QuestionServiceImplTest {
     }
 
     @Test
-    void updateQuestionShouldCallSaveAndFlush() {
+    void updateQuestionShouldCallSave() {
         when(questionRepository.findBySurvey_IdAndId(1L, 1L))
                 .thenReturn(Optional.of(TestMock.getQuestion()));
 
         service.updateQuestion(1L, TestMock.getQuestionDTO());
 
-        verify(questionRepository).saveAndFlush(any(Question.class));
+        verify(questionRepository).save(any(Question.class));
     }
 
     @Test

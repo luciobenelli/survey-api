@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import surveyservice.response.model.Answer;
 import surveyservice.response.model.Response;
+import surveyservice.survey.model.Survey;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -31,18 +32,20 @@ public class ResponseDTO {
                 .build();
     }
 
-    public static Response toEntity(ResponseDTO dto) {
+    public static Response toEntity(Survey survey, ResponseDTO dto) {
         var respondent = RespondentDTO.toEntity(dto.getRespondentDTO());
 
-        return Response.builder()
+        var newResponse = Response.builder()
                 .respondent(respondent)
-                .answerList(getAnswerList(dto))
+                .survey(survey)
                 .build();
+        newResponse.setAnswerList(getAnswerList(survey, dto));
+        return newResponse;
     }
 
-    private static List<Answer> getAnswerList(ResponseDTO dto) {
+    private static List<Answer> getAnswerList(Survey survey, ResponseDTO dto) {
         return dto.getAnswerDTOList().stream()
-                .map(AnswerDTO::toEntity)
+                .map(answerDTO -> AnswerDTO.toEntity(survey, answerDTO))
                 .collect(Collectors.toList());
     }
 

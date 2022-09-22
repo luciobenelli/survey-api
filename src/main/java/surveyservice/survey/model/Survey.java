@@ -12,7 +12,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-@Builder
+@Builder(toBuilder = true)
 @Entity
 @Table(name = "SURVEY")
 public class Survey {
@@ -33,10 +33,32 @@ public class Survey {
     @Enumerated(EnumType.STRING)
     private StatusEnum status;
 
-    @OneToMany(mappedBy = "survey", orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL)
     private List<Question> questionList;
 
-    @OneToMany(mappedBy = "survey", orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL)
     private List<Response> responseList;
 
+    public List<Question> getQuestionList() {
+        return this.questionList == null ? List.of() : this.questionList;
+    }
+
+    public List<Response> getResponseList() {
+        return this.responseList == null ? List.of() : this.responseList;
+    }
+
+    public void setQuestionList(List<Question> questionList) {
+        questionList.forEach(question -> question.setSurvey(this));
+        this.questionList = questionList;
+    }
+
+    public void setResponseList(List<Response> responseList) {
+        responseList.forEach(response -> response.setSurvey(this));
+        this.responseList = responseList;
+    }
+
+    public void addQuestion(Question question) {
+        question.setSurvey(this);
+        this.questionList.add(question);
+    }
 }

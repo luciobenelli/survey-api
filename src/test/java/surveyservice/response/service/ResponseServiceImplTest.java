@@ -75,7 +75,7 @@ class ResponseServiceImplTest {
         when(surveyRepository.findById(1L))
                 .thenReturn(Optional.of(TestMock.getSurvey()));
 
-        when(responseRepository.saveAndFlush(any(Response.class)))
+        when(responseRepository.save(any(Response.class)))
                 .thenReturn(TestMock.getResponse());
 
         var result = service.createResponse(1L, TestMock.getResponseDTO());

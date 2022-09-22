@@ -1,6 +1,7 @@
 package surveyservice.question.model;
 
 import lombok.*;
+import surveyservice.response.model.Answer;
 import surveyservice.survey.model.Survey;
 
 import javax.persistence.*;
@@ -10,7 +11,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-@Builder
+@Builder(toBuilder = true)
 @Entity
 @Table(name = "QUESTION")
 public class Question {
@@ -25,10 +26,22 @@ public class Question {
     private String title;
 
     @ManyToOne
-    @JoinColumn(name = "SURVEY_ID", referencedColumnName = "ID")
+    @JoinColumn(name = "SURVEY_ID")
     private Survey survey;
 
     @OneToMany(mappedBy = "question", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Choice> choiceList;
+
+    @OneToOne(mappedBy = "question", orphanRemoval = true)
+    private Answer answer;
+
+    public List<Choice> getChoiceList() {
+        return choiceList == null ? List.of() : choiceList;
+    }
+
+    public void setChoiceList(List<Choice> choices) {
+        choices.forEach(choice -> choice.setQuestion(this));
+        choiceList = choices;
+    }
 
 }

@@ -3,8 +3,8 @@ package surveyservice.question.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import surveyservice.question.api.QuestionDTO;
+import surveyservice.question.model.Question;
 import surveyservice.question.repository.QuestionRepository;
-import surveyservice.survey.model.Survey;
 import surveyservice.survey.repository.SurveyRepository;
 
 import javax.persistence.EntityNotFoundException;
@@ -40,21 +40,17 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public Long createQuestion(Long idSurvey, QuestionDTO questionDTO) {
-        var survey = surveyRepository.findById(idSurvey)
+        var question = surveyRepository.findById(idSurvey)
+                .map(survey -> QuestionDTO.toEntity(survey, Question.builder().build(), questionDTO))
                 .orElseThrow(() -> new EntityNotFoundException("Survey " + idSurvey + " not found"));
-
-        return questionRepository.saveAndFlush(QuestionDTO.toEntity(survey, questionDTO)).getId();
+        return questionRepository.save(question).getId();
     }
 
     @Override
     public void updateQuestion(Long idSurvey, QuestionDTO questionDTO) {
-        if (questionRepository.findBySurvey_IdAndId(idSurvey, questionDTO.getId()).isEmpty()) {
-            throw new EntityNotFoundException("Question " + questionDTO.getId() + " not found for survey " + idSurvey);
-        }
-        var survey = Survey.builder()
-                .id(idSurvey)
-                .build();
-
-        questionRepository.saveAndFlush(QuestionDTO.toEntity(survey, questionDTO));
+        var updatedQuestion = questionRepository.findBySurvey_IdAndId(idSurvey, questionDTO.getId())
+                .map(question -> QuestionDTO.toEntity(question.getSurvey(), question, questionDTO))
+                .orElseThrow(() -> new EntityNotFoundException("Question " + questionDTO.getId() + " not found for survey " + idSurvey));
+        questionRepository.save(updatedQuestion);
     }
 }

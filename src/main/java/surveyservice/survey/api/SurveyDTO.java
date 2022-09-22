@@ -32,8 +32,8 @@ public class SurveyDTO {
                 .build();
     }
 
-    public static Survey toEntity(SurveyDTO dto) {
-        return Survey.builder()
+    public static Survey toEntity(Survey survey, SurveyDTO dto) {
+        return survey.toBuilder()
                 .id(dto.getId())
                 .name(dto.getName())
                 .description(dto.getDescription())

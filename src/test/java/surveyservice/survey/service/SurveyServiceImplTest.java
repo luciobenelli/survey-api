@@ -78,7 +78,7 @@ class SurveyServiceImplTest {
     void createSurveyShouldReturnCreatedId() {
         var expected = TestMock.getSurveyDTO().getId();
 
-        when(surveyRepository.saveAndFlush(any(Survey.class)))
+        when(surveyRepository.save(any(Survey.class)))
                 .thenReturn(TestMock.getSurvey());
 
         var result = service.createSurvey(TestMock.getSurveyDTO());
@@ -88,13 +88,13 @@ class SurveyServiceImplTest {
     }
 
     @Test
-    void updateSurveyShouldCallSaveAndFlush() {
+    void updateSurveyShouldCallSave() {
         when(surveyRepository.findById(1L))
                 .thenReturn(Optional.of(TestMock.getSurvey()));
 
         service.updateSurvey(TestMock.getSurveyDTO());
 
-        verify(surveyRepository).saveAndFlush(any(Survey.class));
+        verify(surveyRepository).save(any(Survey.class));
     }
 
     @Test
