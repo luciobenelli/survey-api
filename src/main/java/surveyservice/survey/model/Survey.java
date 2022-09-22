@@ -43,22 +43,4 @@ public class Survey {
         return this.questionList == null ? List.of() : this.questionList;
     }
 
-    public List<Response> getResponseList() {
-        return this.responseList == null ? List.of() : this.responseList;
-    }
-
-    public void setQuestionList(List<Question> questionList) {
-        questionList.forEach(question -> question.setSurvey(this));
-        this.questionList = questionList;
-    }
-
-    public void setResponseList(List<Response> responseList) {
-        responseList.forEach(response -> response.setSurvey(this));
-        this.responseList = responseList;
-    }
-
-    public void addQuestion(Question question) {
-        question.setSurvey(this);
-        this.questionList.add(question);
-    }
 }

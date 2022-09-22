@@ -39,7 +39,7 @@ public class AnswerDTO {
         return question.getChoiceList().stream()
                 .filter(c1 -> dto.choiceId.equals(c1.getId()))
                 .findFirst()
-                .orElseThrow(() -> new EntityNotFoundException("Question " + dto.getChoiceId() + " not found for question " + dto.getQuestionId()));
+                .orElseThrow(() -> new EntityNotFoundException("Choice " + dto.getChoiceId() + " not found for question " + dto.getQuestionId()));
     }
 
     private static Question getQuestion(Survey survey, AnswerDTO dto) {
