@@ -28,6 +28,7 @@ class QuestionRepositoryTest extends BaseRepositoryTest {
                 .isNotEmpty()
                 .usingRecursiveComparison()
                 .ignoringExpectedNullFields()
+                .ignoringFields("survey.questionList")
                 .isEqualTo(expected);
 
         assertThat(result)
@@ -67,6 +68,7 @@ class QuestionRepositoryTest extends BaseRepositoryTest {
                 .isPresent()
                 .usingRecursiveComparison()
                 .ignoringExpectedNullFields()
+                .ignoringFields("value.survey.questionList")
                 .isEqualTo(expected);
 
         assertThat(result)

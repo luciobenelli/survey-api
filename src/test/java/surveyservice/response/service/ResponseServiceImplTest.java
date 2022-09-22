@@ -72,8 +72,12 @@ class ResponseServiceImplTest {
 
     @Test
     void createResponseShouldReturnCreatedId() {
+        var survey = TestMock.getSurvey().toBuilder()
+                .questionList(TestMock.getQuestionList())
+                .build();
+
         when(surveyRepository.findById(1L))
-                .thenReturn(Optional.of(TestMock.getSurvey()));
+                .thenReturn(Optional.of(survey));
 
         when(responseRepository.save(any(Response.class)))
                 .thenReturn(TestMock.getResponse());

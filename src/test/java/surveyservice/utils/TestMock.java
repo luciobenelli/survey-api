@@ -101,13 +101,13 @@ public class TestMock {
     }
 
     private static List<AnswerDTO> getAnswerDTOList() {
-        return List.of(getAnswerDTO(1L), getAnswerDTO(2L));
+        return List.of(getAnswerDTO(1L, 1L), getAnswerDTO(2L, 3L));
     }
 
-    private static AnswerDTO getAnswerDTO(Long questionId){
+    public static AnswerDTO getAnswerDTO(Long questionId, Long choiceId){
         return AnswerDTO.builder()
                 .questionId(questionId)
-                .choiceId(1L)
+                .choiceId(choiceId)
                 .build();
     }
 
@@ -130,14 +130,14 @@ public class TestMock {
     }
 
     private static List<Answer> getAnswerList() {
-        return List.of(getAnswer(1L), getAnswer(2L));
+        return List.of(getAnswer(1L, 1L), getAnswer(2L, 3L));
     }
 
-    private static Answer getAnswer(Long questionId){
+    private static Answer getAnswer(Long questionId, Long choiceId){
         return Answer.builder()
                 .id(questionId)
                 .question(getQuestion(questionId))
-                .choice(getChoice(1L))
+                .choice(getChoice(choiceId))
                 .build();
     }
 }
