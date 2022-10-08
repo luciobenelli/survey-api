@@ -1,9 +1,9 @@
 plugins {
-	id 'org.springframework.boot' version '2.5.9'
-	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
-	id 'java'
-	id 'io.freefair.lombok' version "6.0.0-m2"
-	id 'jacoco'
+    id 'org.springframework.boot' version '2.5.9'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+    id 'io.freefair.lombok' version "6.0.0-m2"
+    id 'jacoco'
 }
 
 group = 'lbp'
@@ -11,35 +11,43 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 compileJava.options.encoding = 'UTF-8'
 
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'surveyservice.Application'
+        )
+    }
+}
+
 configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
 }
 
 repositories {
-	mavenLocal()
-	mavenCentral()
+    mavenLocal()
+    mavenCentral()
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'io.springfox:springfox-boot-starter:3.0.0'
-	implementation 'org.flywaydb:flyway-core:8.4.4'
-	runtimeOnly 'com.h2database:h2'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'io.springfox:springfox-boot-starter:3.0.0'
+    implementation 'org.flywaydb:flyway-core:8.4.4'
+    runtimeOnly 'com.h2database:h2'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 test {
-	useJUnitPlatform()
+    useJUnitPlatform()
 }
 
 jacocoTestReport {
-	reports{
-		html.enabled(true)
-	}
+    reports {
+        html.enabled(true)
+    }
 }
 
 test.finalizedBy jacocoTestReport
