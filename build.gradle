@@ -11,14 +11,6 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 compileJava.options.encoding = 'UTF-8'
 
-jar {
-    manifest {
-        attributes(
-                'Main-Class': 'surveyservice.Application'
-        )
-    }
-}
-
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
@@ -51,3 +43,6 @@ jacocoTestReport {
 }
 
 test.finalizedBy jacocoTestReport
+
+task stage(dependsOn: ['build', 'clean'])
+build.mustRunAfter clean
